@@ -11,6 +11,7 @@ namespace FFMSSharp
         public long PTS;
         public int RepeatPict;
         public int KeyFrame;
+        public long FilePos;
     }
 
     #endregion
@@ -57,6 +58,8 @@ namespace FFMSSharp
         /// </remarks>
         public bool KeyFrame
         { get { return _nativeStruct.KeyFrame != 0; } }
+
+        public long FilePos { get { return _nativeStruct.FilePos; } }
 
         #endregion
 
