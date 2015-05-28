@@ -57,6 +57,9 @@ namespace FFMSSharp
         public static extern IntPtr FFMS_GetFrameByTime(IntPtr V, double Time, ref FFMS_ErrorInfo ErrorInfo);
 
         [DllImport("ffms2.dll", SetLastError = false)]
+        public static extern IntPtr FFMS_GetFrameByPosition(IntPtr V, long Position, ref FFMS_ErrorInfo ErrorInfo);
+
+        [DllImport("ffms2.dll", SetLastError = false)]
         public static extern IntPtr FFMS_GetTrackFromVideo(IntPtr V);
     }
 
@@ -520,6 +523,31 @@ namespace FFMSSharp
             lock (this)
             {
                 framePtr = NativeMethods.FFMS_GetFrame(_nativePtr, frame, ref err);
+            }
+
+            if (framePtr == IntPtr.Zero)
+            {
+                throw new NotImplementedException(string.Format(System.Globalization.CultureInfo.CurrentCulture, "Unknown FFMS2 error encountered: ({0}, {1}, '{2}'). Please report this issue on FFMSSharp's GitHub.", err.ErrorType, err.SubType, err.Buffer));
+            }
+
+            LastFrame = new Frame(framePtr);
+            return LastFrame;
+        }
+
+        public Frame GetFrame(long position)
+        {
+            var err = new FFMS_ErrorInfo
+            {
+                BufferSize = 1024,
+                Buffer = new String((char)0, 1024)
+            };
+
+            MarkLastFrameAsInvalid();
+
+            IntPtr framePtr;
+            lock (this)
+            {
+                framePtr = NativeMethods.FFMS_GetFrameByPosition(_nativePtr, position, ref err);
             }
 
             if (framePtr == IntPtr.Zero)
