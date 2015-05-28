@@ -534,7 +534,19 @@ namespace FFMSSharp
             return LastFrame;
         }
 
-        public Frame GetFrame(long position)
+        /// <summary>
+        /// Retrieves a video frame at a file position
+        /// </summary>
+        /// <remarks>
+        /// <para>In FFMS2, the equivalent is <c>FFMS_GetFrameByPosition</c>.</para>
+        /// <para>The returned frame is owned by the given <see cref="VideoSource">VideoSource object</see>, and remains valid until the video source is destroyed, a different frame is requested from the video source, or the video source's input or output format is changed.</para>
+        /// <para>Does the exact same thing as <see cref="GetFrame(int)">GetFrame</see> except instead of giving it a frame number you give it a file position in bytes, and it will retrieve the frame that starts at that position.</para>
+        /// </remarks>
+        /// <param name="position">File position in bytes</param>
+        /// <returns>The generated <see cref="Frame">Frame object</see>.</returns>
+        /// <seealso cref="GetFrame(int)"/>
+        /// <exception cref="ArgumentOutOfRangeException">Trying to access a Frame that doesn't exist.</exception>
+        public Frame GetFrameByPosition(long position)
         {
             var err = new FFMS_ErrorInfo
             {
@@ -572,7 +584,7 @@ namespace FFMSSharp
         /// <returns>The generated <see cref="Frame">Frame object</see>.</returns>
         /// <seealso cref="GetFrame(int)"/>
         /// <exception cref="ArgumentOutOfRangeException">Trying to access a Frame that doesn't exist.</exception>
-        public Frame GetFrame(double time)
+        public Frame GetFrameByTime(double time)
         {
             if (time < 0 || time > LastTime)
                 throw new ArgumentOutOfRangeException(@"time", "That frame doesn't exist.");
