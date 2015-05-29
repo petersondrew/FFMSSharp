@@ -31,6 +31,12 @@ namespace FFMSSharp
         public static extern IntPtr FFMS_GetFrameInfo(IntPtr T, int Frame);
 
         [DllImport("ffms2.dll", SetLastError = false)]
+        public static extern IntPtr FFMS_GetFrameInfoFromPTS(IntPtr T, long PTS);
+
+        [DllImport("ffms2.dll", SetLastError = false)]
+        public static extern IntPtr FFMS_GetFrameInfoFromPos(IntPtr T, long Pos);
+
+        [DllImport("ffms2.dll", SetLastError = false)]
         public static extern int FFMS_WriteTimecodes(IntPtr T, byte[] TimecodeFile, ref FFMS_ErrorInfo ErrorInfo);
     }
 
@@ -220,6 +226,26 @@ namespace FFMSSharp
                 throw new InvalidOperationException("You can only use this function on video tracks.");
 
             var frameInfoPtr = NativeMethods.FFMS_GetFrameInfo(_nativePtr, frame);
+
+            return new FrameInfo((FFMS_FrameInfo)Marshal.PtrToStructure(frameInfoPtr, typeof(FFMS_FrameInfo)));
+        }
+
+        public FrameInfo GetFrameInfoFromPts(long pts)
+        {
+            if (TrackType != TrackType.Video)
+                throw new InvalidOperationException("You can only use this function on video tracks.");
+
+            var frameInfoPtr = NativeMethods.FFMS_GetFrameInfoFromPTS(_nativePtr, pts);
+
+            return new FrameInfo((FFMS_FrameInfo)Marshal.PtrToStructure(frameInfoPtr, typeof(FFMS_FrameInfo)));
+        }
+
+        public FrameInfo GetFrameInfoFromPosition(long position)
+        {
+            if (TrackType != TrackType.Video)
+                throw new InvalidOperationException("You can only use this function on video tracks.");
+
+            var frameInfoPtr = NativeMethods.FFMS_GetFrameInfoFromPos(_nativePtr, position);
 
             return new FrameInfo((FFMS_FrameInfo)Marshal.PtrToStructure(frameInfoPtr, typeof(FFMS_FrameInfo)));
         }
