@@ -230,33 +230,6 @@
             <para>Note that there is no equivalent for FFMS2's <c>FFMS_GetAudioProperties</c> as it is called during construction of the <see cref="T:FFMSSharp.AudioSource">AudioSource object</see>.</para>
             </remarks>
         </member>
-        <member name="M:FFMSSharp.AudioSource.Finalize">
-            <summary>
-            Audio source destructor
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_DestroyAudioSource</c>.</para>
-            </remarks>
-        </member>
-        <member name="M:FFMSSharp.AudioSource.GetAudio(System.Int64,System.Int64)">
-            <summary>
-            Decode a number of audio samples
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetAudio</c>.</para>
-            <para>The output is <paramref name="count"/> samples long, starting from <paramref name="start"/> (inclusive).</para>
-            </remarks>
-            <param name="start">The first sample to decode
-            <para>Sample numbers start from zero and hence the last sample in the stream is number <see cref="P:FFMSSharp.AudioSource.NumberOfSamples"/> minus 1.</para>
-            </param>
-            <param name="count">The amount of samples to decode
-            <para>Sample numbers start from zero and hence the last sample in the stream is number <see cref="P:FFMSSharp.AudioSource.NumberOfSamples"/> minus 1.</para>
-            </param>
-            <returns>The raw audio data</returns>
-            <threadsafety instance="false"/>
-            <exception cref="T:System.ArgumentOutOfRangeException">Trying to access audio samples that are out of range of the stream.</exception>
-            <exception cref="T:System.NotSupportedException">Trying to start half-way into an unseekable audio stream.</exception>
-        </member>
         <member name="P:FFMSSharp.AudioSource.SampleFormat">
             <summary>
             Audio sample format
@@ -296,7 +269,7 @@
             The channel layout of the audio stream
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties-&gt;ChannelLayout</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties->ChannelLayout</c>.</para>
             <para>Constructed by binary OR'ing the relevant integers from <see cref="P:FFMSSharp.AudioSource.ChannelLayout"/> together, which means that if the audio has the channel AudioChannel.Example, the operation (ChannelOrder &amp; AudioChannel.Example) will evaluate to true.</para>
             </remarks>
         </member>
@@ -313,7 +286,7 @@
             The first timestamp of the stream, in seconds
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties-&gt;FirstTime</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties->FirstTime</c>.</para>
             <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
             </remarks>
             <seealso cref="P:FFMSSharp.AudioSource.LastTime"/>
@@ -323,7 +296,7 @@
             The last timestamp of the stream, in seconds
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties-&gt;LastTime</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_AudioProperties->LastTime</c>.</para>
             <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
             </remarks>
             <seealso cref="P:FFMSSharp.AudioSource.FirstTime"/>
@@ -337,6 +310,33 @@
             <para>It's generally safer to use this instead of <see cref="M:FFMSSharp.Index.GetTrack(System.Int32)">Index.GetTrack</see>, since unlike that function it cannot cause access violations if you specified an nonexistent track number, return a <see cref="P:FFMSSharp.AudioSource.Track">Track object</see> that doesn't actually contain any indexing information, or return an object that ceases to be valid when the index is destroyed.</para>
             <para>Note that the <see cref="P:FFMSSharp.AudioSource.Track">Track object</see> is only valid until its parent <see cref="T:FFMSSharp.AudioSource">AudioSource object</see> is destroyed.</para>
             </remarks>
+        </member>
+        <member name="M:FFMSSharp.AudioSource.Finalize">
+            <summary>
+            Audio source destructor
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_DestroyAudioSource</c>.</para>
+            </remarks>
+        </member>
+        <member name="M:FFMSSharp.AudioSource.GetAudio(System.Int64,System.Int64)">
+            <summary>
+            Decode a number of audio samples
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetAudio</c>.</para>
+            <para>The output is <paramref name="count"/> samples long, starting from <paramref name="start"/> (inclusive).</para>
+            </remarks>
+            <param name="start">The first sample to decode
+            <para>Sample numbers start from zero and hence the last sample in the stream is number <see cref="P:FFMSSharp.AudioSource.NumberOfSamples"/> minus 1.</para>
+            </param>
+            <param name="count">The amount of samples to decode
+            <para>Sample numbers start from zero and hence the last sample in the stream is number <see cref="P:FFMSSharp.AudioSource.NumberOfSamples"/> minus 1.</para>
+            </param>
+            <returns>The raw audio data</returns>
+            <threadsafety instance="false"/>
+            <exception cref="T:System.ArgumentOutOfRangeException">Trying to access audio samples that are out of range of the stream.</exception>
+            <exception cref="T:System.NotSupportedException">Trying to start half-way into an unseekable audio stream.</exception>
         </member>
         <member name="T:FFMSSharp.ColorSpace">
             <summary>
@@ -473,7 +473,7 @@
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_Frame</c>.</para>
             <para>See <see cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)">VideoSource.GetFrame</see> on how to create a <see cref="T:FFMSSharp.Frame">Frame object</see>.</para>
-            <para>The frame is only valid until after you have called <see cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)">VideoSource.GetFrame(int)</see>/<see cref="M:FFMSSharp.VideoSource.GetFrame(System.Double)">(double)</see>, <see cref="M:FFMSSharp.VideoSource.SetInputFormat(FFMSSharp.ColorSpace,FFMSSharp.ColorRange)">SetInputFormat(FFMSSharp.ColorSpace, FFMSSharp.ColorRange)</see>/<see cref="M:FFMSSharp.VideoSource.SetInputFormat(System.Int32,FFMSSharp.ColorSpace,FFMSSharp.ColorRange)">(int, FFMSSharp.ColorSpace, FFMSSharp.ColorRange)</see>, <see cref="M:FFMSSharp.VideoSource.ResetInputFormat">ResetInputFormat</see>, <see cref="M:FFMSSharp.VideoSource.SetOutputFormat(System.Collections.Generic.ICollection{System.Int32},System.Int32,System.Int32,FFMSSharp.Resizer)">SetOutputFormat</see>, <see cref="M:FFMSSharp.VideoSource.ResetOutputFormat">ResetOutputFormat</see>, or after the parent <see cref="T:FFMSSharp.VideoSource"/> has been destroyed.</para>
+            <para>The frame is only valid until after you have called <see cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)">VideoSource.GetFrame(int)</see>/<see cref="!:VideoSource.GetFrame(double)">(double)</see>, <see cref="M:FFMSSharp.VideoSource.SetInputFormat(FFMSSharp.ColorSpace,FFMSSharp.ColorRange)">SetInputFormat(FFMSSharp.ColorSpace, FFMSSharp.ColorRange)</see>/<see cref="M:FFMSSharp.VideoSource.SetInputFormat(System.Int32,FFMSSharp.ColorSpace,FFMSSharp.ColorRange)">(int, FFMSSharp.ColorSpace, FFMSSharp.ColorRange)</see>, <see cref="M:FFMSSharp.VideoSource.ResetInputFormat">ResetInputFormat</see>, <see cref="M:FFMSSharp.VideoSource.SetOutputFormat(System.Collections.Generic.ICollection{System.Int32},System.Int32,System.Int32,FFMSSharp.Resizer)">SetOutputFormat</see>, <see cref="M:FFMSSharp.VideoSource.ResetOutputFormat">ResetOutputFormat</see>, or after the parent <see cref="T:FFMSSharp.VideoSource"/> has been destroyed.</para>
             <para>Attempting to access any data from the frame after it has been rendered invalid will result in an ObjectDisposedException.</para>
             </remarks>
         </member>
@@ -482,7 +482,7 @@
             A list of pointers to the pixel data
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;Data</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->Data</c>.</para>
             <para>Planar formats use more than one plane, for example YV12 uses one plane each for the Y, U and V data.</para>
             <para>Packed formats (such as the various RGB32 flavors) use only the first plane.</para>
             <para>If you want to determine if plane i contains data or not, check for <see cref="P:FFMSSharp.Frame.DataLength"/>[i] != 0.</para>
@@ -494,7 +494,7 @@
             A list of integers representing the length of each scan line in each of the four picture planes, in bytes
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;Linesize</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->Linesize</c>.</para>
             <para>In alternative terminology, this is the "pitch" of the plane.</para>
             <para>Usually, the total size in bytes of picture plane i is <see cref="P:FFMSSharp.Frame.DataLength"/>[i] * <see cref="P:FFMSSharp.Frame.Resolution">Resolution.Height</see>, but do note that some pixel formats (most notably YV12) has vertical chroma subsampling, and then the U/V planes may be of a different height than the primary plane.</para>
             <para>This may be negative; if so the image is stored inverted in memory and Data actually points of the last row of the data.</para>
@@ -507,7 +507,7 @@
             The original resolution of the frame (in pixels)
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;EncodedWidth</c> and <c>EncodedHeight</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->EncodedWidth</c> and <c>EncodedHeight</c>.</para>
             <para>As encoded in the compressed file, before any scaling was applied.</para>
             <para>Note that this must not necessarily be the same for all frames in a stream.</para>
             </remarks>
@@ -518,7 +518,7 @@
             The original pixel format of the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;EncodedPixelFormat</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->EncodedPixelFormat</c>.</para>
             <para>As encoded in the compressed file.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
@@ -528,7 +528,7 @@
             The output resolution of the frame (in pixels)
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;ScaledWidth</c> and <c>ScaledHeight</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->ScaledWidth</c> and <c>ScaledHeight</c>.</para>
             <para>The resolution of what is actually stored in the <see cref="P:FFMSSharp.Frame.Data"/> field.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
@@ -538,7 +538,7 @@
             The output pixel format of the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;ConvertedPixelFormat</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->ConvertedPixelFormat</c>.</para>
             <para>The pixel format of what is actually stored in the <see cref="P:FFMSSharp.Frame.Data"/> field.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
@@ -548,7 +548,7 @@
             Is this a keyframe?
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;KeyFrame</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->KeyFrame</c>.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
         </member>
@@ -557,7 +557,7 @@
             An integer representing the RFF flag for this frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;RepeatPict</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->RepeatPict</c>.</para>
             <para>The frame shall be displayed for 1+<see cref="P:FFMSSharp.Frame.RepeatPicture"/> time units, where the time units are expressed in the special RFF timebase available in <see cref="P:FFMSSharp.VideoSource.RFFNumerator"/> and <see cref="P:FFMSSharp.VideoSource.RFFDenominator"/>.</para>
             <para>Note that if you actually end up using this, you need to ignore the usual timestamps (calculated via the <see cref="P:FFMSSharp.Track.TimeBaseNumerator"/>/<see cref="P:FFMSSharp.Track.TimeBaseDenominator"/> and the <see cref="P:FFMSSharp.FrameInfo.PTS"/>) since they are fundamentally incompatible with RFF flags.</para>
             </remarks>
@@ -568,7 +568,7 @@
             Is this an interlaced frame?
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;InterlacedFrame</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->InterlacedFrame</c>.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
         </member>
@@ -577,7 +577,7 @@
             Is the top field first?
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;TopFieldFirst</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->TopFieldFirst</c>.</para>
             <para>Only relevant if <see cref="P:FFMSSharp.Frame.InterlacedFrame"/> is nonzero.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
@@ -596,7 +596,7 @@
             Identifies the YUV color coefficients used in the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;ColorSpace</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->ColorSpace</c>.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
             <seealso cref="P:FFMSSharp.Frame.ColorSpace"/>
@@ -606,7 +606,7 @@
             Identifies the luma range of the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Frame-&gt;ColorRange</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_Frame->ColorRange</c>.</para>
             </remarks>
             <exception cref="T:System.ObjectDisposedException">Trying to access data from an invalidated Frame, see <see cref="T:FFMSSharp.Frame"/>.</exception>
             <seealso cref="P:FFMSSharp.Frame.ColorRange"/>
@@ -634,7 +634,7 @@
             The decoding timestamp of the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo-&gt;PTS</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo->PTS</c>.</para>
             <para>To convert this to a timestamp in wallclock milliseconds, use the relation long timestamp = (long)((<see cref="P:FFMSSharp.FrameInfo.PTS"/> * <see cref="P:FFMSSharp.Track.TimeBaseNumerator">Track.TimeBase.Numerator</see>) / (double)<see cref="P:FFMSSharp.Track.TimeBaseDenominator">Track.TimeBase.Denumerator</see>).</para>
             </remarks>
         </member>
@@ -643,7 +643,7 @@
             RFF flag for the frame
             </summary>
             <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo-&gt;RepeatPict</c>.</para>
+            <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo->RepeatPict</c>.</para>
             </remarks>
             <seealso cref="P:FFMSSharp.Frame.RepeatPicture"/>
         </member>
@@ -662,7 +662,7 @@
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_SeekMode</c>.</para>
             </remarks>
-            <seealso cref="T:FFMSSharp.VideoSource"/>
+            <seealso cref="T:FFMSSharp.VideoSource" />
         </member>
         <member name="F:FFMSSharp.SeekMode.LinearNoRewind">
             <summary>
@@ -699,7 +699,7 @@
             </summary>
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_SEEK_UNSAFE</c>.</para>
-            <para>Same as <see cref="F:FFMSSharp.SeekMode.Normal"/> but no error will be thrown if the exact destination has to be guessed.</para>
+            <para>Same as <see cref="F:FFMSSharp.SeekMode.Normal" /> but no error will be thrown if the exact destination has to be guessed.</para>
             </remarks>
         </member>
         <member name="F:FFMSSharp.SeekMode.Aggressive">
@@ -799,6 +799,32 @@
             <para>To get an Index for a media file you haven't indexed yet, use the <see cref="T:FFMSSharp.Indexer">Indexer</see> class.</para>
             </remarks>
         </member>
+        <member name="P:FFMSSharp.Index.Source">
+            <summary>
+            Source module that was used in creating the index
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetSourceType</c>.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.Indexer.Source"/>
+        </member>
+        <member name="P:FFMSSharp.Index.IndexErrorHandling">
+            <summary>
+            Error handling that method was used in creating of the index
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetErrorHandling</c>.</para>
+            </remarks>
+            <seealso cref="M:FFMSSharp.Indexer.Index(System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IEnumerable{System.Int32},System.String,FFMSSharp.IndexErrorHandling)"/>
+        </member>
+        <member name="P:FFMSSharp.Index.NumberOfTracks">
+            <summary>
+            Total number of tracks in the index
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetNumTracks</c>.</para>
+            </remarks>
+        </member>
         <member name="M:FFMSSharp.Index.#ctor(System.String)">
             <summary>
             Read an index from disk
@@ -808,6 +834,7 @@
             </remarks>
             <param name="indexFile">Can be an absolute or relative path</param>
             <exception cref="T:System.IO.IOException">Trying to read an invalid index file.</exception>
+            <exception cref="T:System.IO.FileNotFoundException">Trying to read an index file that does not exist.</exception>
             <exception cref="T:System.NotSupportedException">Trying to read an index file for a <see cref="P:FFMSSharp.Index.Source">Source</see> that is not available in the ffms2.dll.</exception>
         </member>
         <member name="M:FFMSSharp.Index.Dispose">
@@ -889,6 +916,7 @@
             <seealso cref="M:FFMSSharp.Index.GetFirstTrackOfType(FFMSSharp.TrackType)"/>
             <seealso cref="M:FFMSSharp.Index.GetFirstIndexedTrackOfType(FFMSSharp.TrackType)"/>
             <exception cref="T:System.IO.FileLoadException">Failure to open the <paramref name="sourceFile"/></exception>
+            <exception cref="T:System.IO.FileNotFoundException">Trying to read a file that does not exist.</exception>
             <exception cref="T:System.ArgumentException">Trying to make a VideoSource out of an invalid track</exception>
             <exception cref="T:System.InvalidOperationException">Supplying the wrong <paramref name="sourceFile"/></exception>
         </member>
@@ -908,6 +936,7 @@
             <seealso cref="M:FFMSSharp.Index.GetFirstTrackOfType(FFMSSharp.TrackType)"/>
             <seealso cref="M:FFMSSharp.Index.GetFirstIndexedTrackOfType(FFMSSharp.TrackType)"/>
             <exception cref="T:System.IO.FileLoadException">Failure to open the <paramref name="sourceFile"/></exception>
+            <exception cref="T:System.IO.FileNotFoundException">Trying to read a file that does not exist.</exception>
             <exception cref="T:System.ArgumentException">Trying to make a AudioSource out of an invalid track</exception>
             <exception cref="T:System.InvalidOperationException">Supplying the wrong <paramref name="sourceFile"/></exception>
         </member>
@@ -920,39 +949,13 @@
             <para>Use this function if you don't want to (or cannot) open the track with <see cref="M:FFMSSharp.Index.VideoSource(System.String,System.Int32,System.Int32,FFMSSharp.SeekMode)">VideoSource</see> or <see cref="M:FFMSSharp.Index.AudioSource(System.String,System.Int32,FFMSSharp.AudioDelayMode)">AudioSource</see> first.</para>
             <para>If you already have a <see cref="T:FFMSSharp.VideoSource">VideoSource object</see> or <see cref="T:FFMSSharp.AudioSource">AudioSource object</see> it's safer to use the Track property of <see cref="P:FFMSSharp.VideoSource.Track">VideoSource</see> and <see cref="P:FFMSSharp.AudioSource.Track">AudioSource</see> instead.</para>
             <para>The returned <see cref="T:FFMSSharp.Track">Track object</see> is only valid until its parent <see cref="T:FFMSSharp.Index">Index object</see> is destroyed.</para>
-            <para>Requesting indexing information for a track that has not been indexed will not cause an error, it will just return an empty FFMS_Track (check for &gt;0 frames using <see cref="P:FFMSSharp.Track.NumberOfFrames">GetNumFrames</see> to see if the returned object actually contains indexing information).</para>
+            <para>Requesting indexing information for a track that has not been indexed will not cause an error, it will just return an empty FFMS_Track (check for >0 frames using <see cref="P:FFMSSharp.Track.NumberOfFrames">GetNumFrames</see> to see if the returned object actually contains indexing information).</para>
             </remarks>
             <param name="track">Track number</param>
             <returns>The generated <see cref="T:FFMSSharp.Track">Track object</see></returns>
             <seealso cref="M:FFMSSharp.Index.GetFirstTrackOfType(FFMSSharp.TrackType)"/>
             <seealso cref="M:FFMSSharp.Index.GetFirstIndexedTrackOfType(FFMSSharp.TrackType)"/>
             <exception cref="T:System.ArgumentOutOfRangeException">Trying to access a Track that doesn't exist.</exception>
-        </member>
-        <member name="P:FFMSSharp.Index.Source">
-            <summary>
-            Source module that was used in creating the index
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetSourceType</c>.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.Indexer.Source"/>
-        </member>
-        <member name="P:FFMSSharp.Index.IndexErrorHandling">
-            <summary>
-            Error handling that method was used in creating of the index
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetErrorHandling</c>.</para>
-            </remarks>
-            <seealso cref="M:FFMSSharp.Indexer.Index(System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IEnumerable{System.Int32},System.String,FFMSSharp.IndexErrorHandling)"/>
-        </member>
-        <member name="P:FFMSSharp.Index.NumberOfTracks">
-            <summary>
-            Total number of tracks in the index
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetNumTracks</c>.</para>
-            </remarks>
         </member>
         <member name="T:FFMSSharp.Source">
             <summary>
@@ -1023,6 +1026,43 @@
             </summary>
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_Indexer</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:FFMSSharp.Indexer.IsIndexing">
+            <summary>
+            Use this to check if the Indexer is currently working
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Indexer.CancelIndexing">
+            <summary>
+            Use this to cancel indexing at any point
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Indexer.Source">
+            <summary>
+            Source module that was used to open the indexer
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetSourceTypeI</c>.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.Index.Source"/>
+        </member>
+        <member name="P:FFMSSharp.Indexer.NumberOfTracks">
+            <summary>
+            The number of tracks
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetNumTrackI</c>.</para>
+            <para>Does the same thing as <see cref="P:FFMSSharp.Index.NumberOfTracks">Index.NumberOfTracks</see> but does not require having the file indexed first.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.Index.NumberOfTracks"/>
+        </member>
+        <member name="P:FFMSSharp.Indexer.FormatName">
+            <summary>
+            The name of the container format of the media file
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetFormatNameI</c>.</para>
             </remarks>
         </member>
         <member name="M:FFMSSharp.Indexer.#ctor(System.String,FFMSSharp.Source)">
@@ -1105,43 +1145,6 @@
             <exception cref="T:System.OperationCanceledException">Canceling the indexing process</exception>
             <exception cref="T:System.ObjectDisposedException">Calling this function after you have already called <see cref="M:FFMSSharp.Indexer.Index(System.Collections.Generic.IEnumerable{System.Int32},System.Collections.Generic.IEnumerable{System.Int32},System.String,FFMSSharp.IndexErrorHandling)"/>.</exception>
         </member>
-        <member name="P:FFMSSharp.Indexer.IsIndexing">
-            <summary>
-            Use this to check if the Indexer is currently working
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Indexer.CancelIndexing">
-            <summary>
-            Use this to cancel indexing at any point
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Indexer.Source">
-            <summary>
-            Source module that was used to open the indexer
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetSourceTypeI</c>.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.Index.Source"/>
-        </member>
-        <member name="P:FFMSSharp.Indexer.NumberOfTracks">
-            <summary>
-            The number of tracks
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetNumTrackI</c>.</para>
-            <para>Does the same thing as <see cref="P:FFMSSharp.Index.NumberOfTracks">Index.NumberOfTracks</see> but does not require having the file indexed first.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.Index.NumberOfTracks"/>
-        </member>
-        <member name="P:FFMSSharp.Indexer.FormatName">
-            <summary>
-            The name of the container format of the media file
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetFormatNameI</c>.</para>
-            </remarks>
-        </member>
         <member name="E:FFMSSharp.Indexer.UpdateIndexProgress">
             <summary>
             Called to give you an update on indexing progress
@@ -1153,13 +1156,38 @@
             Called when the indexing has finished
             </summary>
         </member>
+        <member name="T:FFMSSharp.Selection">
+            <summary>
+            Simple representation of a selection rectangle
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Selection.Top">
+            <summary>
+            Amount of Top to crop
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Selection.Left">
+            <summary>
+            Amount of Left to crop
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Selection.Right">
+            <summary>
+            Amount of Right to crop
+            </summary>
+        </member>
+        <member name="P:FFMSSharp.Selection.Bottom">
+            <summary>
+            Amount of Bottom to crop
+            </summary>
+        </member>
         <member name="T:FFMSSharp.TrackType">
             <summary>
             Used for determining the type of a given track
             </summary>
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_TrackType</c>.</para>
-            <para>Note that there are currently no functions to handle any type of track other than <see cref="F:FFMSSharp.TrackType.Video"/> and <see cref="F:FFMSSharp.TrackType.Audio"/>.</para>
+            <para>Note that there are currently no functions to handle any type of track other than <see cref="F:FFMSSharp.TrackType.Video" /> and <see cref="F:FFMSSharp.TrackType.Audio"/>.</para>
             </remarks>
         </member>
         <member name="F:FFMSSharp.TrackType.Unknown">
@@ -1219,29 +1247,6 @@
             <para>See <see cref="M:FFMSSharp.Index.GetTrack(System.Int32)">Index.GetTrack</see>, <see cref="P:FFMSSharp.VideoSource.Track">VideoSource.Track</see> or <see cref="P:FFMSSharp.AudioSource.Track">AudioSource.Track</see> on how to create a <see cref="T:FFMSSharp.Track">Track object</see>.</para>
             </remarks>
         </member>
-        <member name="M:FFMSSharp.Track.WriteTimecodes(System.String)">
-            <summary>
-            Writes timecodes for the track to disk
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_WriteTimecodes</c>.</para>
-            <para>Writes Matroska v2 timecodes for the track to the given file.</para>
-            <para>Only meaningful for video tracks. </para>
-            </remarks>
-            <param name="timecodeFile">Can be a relative or absolute path. The file will be truncated and overwritten if it already exists.</param>
-            <exception cref="T:System.IO.IOException">Failure to open or write to the file</exception>
-        </member>
-        <member name="M:FFMSSharp.Track.GetFrameInfo(System.Int32)">
-            <summary>
-            Gets information about a specific frame
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetFrameInfo</c>.</para>
-            <para>Gets information about the given frame (identified by its frame number) from the indexing information in the <see cref="T:FFMSSharp.Track">Track object</see> and returns it as a <see cref="T:FFMSSharp.FrameInfo">FrameInfo object</see>.</para>
-            </remarks>
-            <param name="frame">Frame number</param>
-            <returns>The generated <see cref="T:FFMSSharp.FrameInfo">FrameInfo object</see>.</returns>
-        </member>
         <member name="P:FFMSSharp.Track.TimeBaseNumerator">
             <summary>
             The basic time unit of the track
@@ -1281,6 +1286,29 @@
             <para>For a video track this is the number of video frames, for an audio track it's the number of packets.</para>
             <para>A return value of 0 indicates the track has not been indexed.</para>
             </remarks>
+        </member>
+        <member name="M:FFMSSharp.Track.WriteTimecodes(System.String)">
+            <summary>
+            Writes timecodes for the track to disk
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_WriteTimecodes</c>.</para>
+            <para>Writes Matroska v2 timecodes for the track to the given file.</para>
+            <para>Only meaningful for video tracks. </para>
+            </remarks>
+            <param name="timecodeFile">Can be a relative or absolute path. The file will be truncated and overwritten if it already exists.</param>
+            <exception cref="T:System.IO.IOException">Failure to open or write to the file</exception>
+        </member>
+        <member name="M:FFMSSharp.Track.GetFrameInfo(System.Int32)">
+            <summary>
+            Gets information about a specific frame
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetFrameInfo</c>.</para>
+            <para>Gets information about the given frame (identified by its frame number) from the indexing information in the <see cref="T:FFMSSharp.Track">Track object</see> and returns it as a <see cref="T:FFMSSharp.FrameInfo">FrameInfo object</see>.</para>
+            </remarks>
+            <param name="frame">Frame number</param>
+            <returns>The generated <see cref="T:FFMSSharp.FrameInfo">FrameInfo object</see>.</returns>
         </member>
         <member name="T:FFMSSharp.Resizer">
             <summary>
@@ -1388,6 +1416,129 @@
             <para>Note that there is no equivalent for FFMS2's <c>FFMS_GetVideoProperties</c> as it is called during construction of the <see cref="T:FFMSSharp.VideoSource">VideoSource object</see>.</para>
             </remarks>
         </member>
+        <member name="P:FFMSSharp.VideoSource.FPSNumerator">
+            <summary>
+            The nominal framerate of the track
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->FPSNumerator</c>.</para>
+            <para>For Matroska files, this number is based on the average frame duration of all frames, while for everything else it's based on the duration of the first frame.</para>
+            <para>While it might seem tempting to use these values to extrapolate wallclock timestamps for each frame, you really shouldn't do that since it makes your code unable to handle variable framerate properly.</para>
+            <para>The ugly reality is that these values are pretty much only useful for informational purposes; they are only somewhat reliable for antiquated containers like AVI.</para>
+            <para>Normally they should never be used for practical purposes; generate individual frame timestamps from <see cref="P:FFMSSharp.FrameInfo.PTS">FrameInfo.PTS</see> instead.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.FPSDenominator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.FPSDenominator">
+            <summary>
+            The nominal framerate of the track
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->FPSDenominator</c>.</para>
+            <para>For Matroska files, this number is based on the average frame duration of all frames, while for everything else it's based on the duration of the first frame.</para>
+            <para>While it might seem tempting to use these values to extrapolate wallclock timestamps for each frame, you really shouldn't do that since it makes your code unable to handle variable framerate properly.</para>
+            <para>The ugly reality is that these values are pretty much only useful for informational purposes; they are only somewhat reliable for antiquated containers like AVI.</para>
+            <para>Normally they should never be used for practical purposes; generate individual frame timestamps from <see cref="P:FFMSSharp.FrameInfo.PTS">FrameInfo.PTS</see> instead.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.FPSNumerator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.RFFNumerator">
+            <summary>
+            The special RFF timebase
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->RFFNumerator</c>.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.Frame.RepeatPicture"/>
+            <seealso cref="P:FFMSSharp.VideoSource.RFFDenominator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.RFFDenominator">
+            <summary>
+            The special RFF timebase
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->RFFDenominator</c>.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.Frame.RepeatPicture"/>
+            <seealso cref="P:FFMSSharp.VideoSource.RFFNumerator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.NumberOfFrames">
+            <summary>
+            The number of frames in the video track
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->NumFrames</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.SampleAspectRatioNumerator">
+            <summary>
+            Sample aspect ratio of the video frames
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->SARNum</c> and <c>SARDen</c>.</para>
+            <para>Note that this is a metadata setting that you are free to ignore, but if you want the proper display aspect ratio with anamorphic material, you should honor it.</para>
+            <para>On the other hand, there are situations (like when encoding) where you should probably ignore it because the user expects it to be ignored.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.SampleAspectRatioDenominator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.SampleAspectRatioDenominator">
+            <summary>
+            Sample aspect ratio of the video frames
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->SARNum</c> and <c>SARDen</c>.</para>
+            <para>Note that this is a metadata setting that you are free to ignore, but if you want the proper display aspect ratio with anamorphic material, you should honor it.</para>
+            <para>On the other hand, there are situations (like when encoding) where you should probably ignore it because the user expects it to be ignored.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.SampleAspectRatioNumerator"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.Crop">
+            <summary>
+            The number of pixels you should crop the frame before displaying it
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->CropTop</c>, <c>CropBottom</c>, <c>CropLeft</c> and <c>CropRight</c>.</para>
+            </remarks>
+            <seealso cref="T:FFMSSharp.Selection"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.TopFieldFirst">
+            <summary>
+            Is the top field first?
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->TopFieldFirst</c>.</para>
+            </remarks>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.FirstTime">
+            <summary>
+            The first timestamp of the stream, in seconds
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->FirstTime</c>.</para>
+            <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.LastTime"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.LastTime">
+            <summary>
+            The first timestamp of the stream, in seconds
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->LastTime</c>.</para>
+            <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
+            </remarks>
+            <seealso cref="P:FFMSSharp.VideoSource.FirstTime"/>
+        </member>
+        <member name="P:FFMSSharp.VideoSource.Track">
+            <summary>
+            Retrieves track info
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetTrackFromVideo</c>.</para>
+            <para>It's generally safer to use this instead of <see cref="M:FFMSSharp.Index.GetTrack(System.Int32)">Index.GetTrack</see>, since unlike that function it cannot cause access violations if you specified an nonexistent track number, return a <see cref="P:FFMSSharp.VideoSource.Track">Track object</see> that doesn't actually contain any indexing information, or return an object that ceases to be valid when the index is destroyed.</para>
+            <para>Note that the <see cref="P:FFMSSharp.VideoSource.Track">Track object</see> is only valid until its parent <see cref="T:FFMSSharp.VideoSource">AudioSource object</see> is destroyed.</para>
+            </remarks>
+        </member>
         <member name="M:FFMSSharp.VideoSource.Finalize">
             <summary>
             Video source destructor
@@ -1487,10 +1638,24 @@
             <para>Frame numbering starts from zero, and hence the first frame is number 0 (not 1) and the last frame is number <see cref="P:FFMSSharp.VideoSource.NumberOfFrames">NumFrames</see> - 1.</para>
             </param>
             <returns>The generated <see cref="T:FFMSSharp.Frame">Frame object</see>.</returns>
-            <seealso cref="M:FFMSSharp.VideoSource.GetFrame(System.Double)"/>
+            <seealso cref="!:GetFrame(double)"/>
             <exception cref="T:System.ArgumentOutOfRangeException">Trying to access a Frame that doesn't exist.</exception>
         </member>
-        <member name="M:FFMSSharp.VideoSource.GetFrame(System.Double)">
+        <member name="M:FFMSSharp.VideoSource.GetFrameByPosition(System.Int64)">
+            <summary>
+            Retrieves a video frame at a file position
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetFrameByPosition</c>.</para>
+            <para>The returned frame is owned by the given <see cref="T:FFMSSharp.VideoSource">VideoSource object</see>, and remains valid until the video source is destroyed, a different frame is requested from the video source, or the video source's input or output format is changed.</para>
+            <para>Does the exact same thing as <see cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)">GetFrame</see> except instead of giving it a frame number you give it a file position in bytes, and it will retrieve the frame that starts at that position.</para>
+            </remarks>
+            <param name="position">File position in bytes</param>
+            <returns>The generated <see cref="T:FFMSSharp.Frame">Frame object</see>.</returns>
+            <seealso cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)"/>
+            <exception cref="T:System.ArgumentOutOfRangeException">Trying to access a Frame that doesn't exist.</exception>
+        </member>
+        <member name="M:FFMSSharp.VideoSource.GetFrameByTime(System.Double)">
             <summary>
             Retrieves a video frame at a timestamp
             </summary>
@@ -1504,129 +1669,6 @@
             <returns>The generated <see cref="T:FFMSSharp.Frame">Frame object</see>.</returns>
             <seealso cref="M:FFMSSharp.VideoSource.GetFrame(System.Int32)"/>
             <exception cref="T:System.ArgumentOutOfRangeException">Trying to access a Frame that doesn't exist.</exception>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.FPSNumerator">
-            <summary>
-            The nominal framerate of the track
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;FPSNumerator</c>.</para>
-            <para>For Matroska files, this number is based on the average frame duration of all frames, while for everything else it's based on the duration of the first frame.</para>
-            <para>While it might seem tempting to use these values to extrapolate wallclock timestamps for each frame, you really shouldn't do that since it makes your code unable to handle variable framerate properly.</para>
-            <para>The ugly reality is that these values are pretty much only useful for informational purposes; they are only somewhat reliable for antiquated containers like AVI.</para>
-            <para>Normally they should never be used for practical purposes; generate individual frame timestamps from <see cref="P:FFMSSharp.FrameInfo.PTS">FrameInfo.PTS</see> instead.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.FPSDenominator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.FPSDenominator">
-            <summary>
-            The nominal framerate of the track
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;FPSDenominator</c>.</para>
-            <para>For Matroska files, this number is based on the average frame duration of all frames, while for everything else it's based on the duration of the first frame.</para>
-            <para>While it might seem tempting to use these values to extrapolate wallclock timestamps for each frame, you really shouldn't do that since it makes your code unable to handle variable framerate properly.</para>
-            <para>The ugly reality is that these values are pretty much only useful for informational purposes; they are only somewhat reliable for antiquated containers like AVI.</para>
-            <para>Normally they should never be used for practical purposes; generate individual frame timestamps from <see cref="P:FFMSSharp.FrameInfo.PTS">FrameInfo.PTS</see> instead.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.FPSNumerator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.RFFNumerator">
-            <summary>
-            The special RFF timebase
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;RFFNumerator</c>.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.Frame.RepeatPicture"/>
-            <seealso cref="P:FFMSSharp.VideoSource.RFFDenominator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.RFFDenominator">
-            <summary>
-            The special RFF timebase
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;RFFDenominator</c>.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.Frame.RepeatPicture"/>
-            <seealso cref="P:FFMSSharp.VideoSource.RFFNumerator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.NumberOfFrames">
-            <summary>
-            The number of frames in the video track
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->NumFrames</c>.</para>
-            </remarks>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.SampleAspectRatioNumerator">
-            <summary>
-            Sample aspect ratio of the video frames
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;SARNum</c> and <c>SARDen</c>.</para>
-            <para>Note that this is a metadata setting that you are free to ignore, but if you want the proper display aspect ratio with anamorphic material, you should honor it.</para>
-            <para>On the other hand, there are situations (like when encoding) where you should probably ignore it because the user expects it to be ignored.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.SampleAspectRatioDenominator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.SampleAspectRatioDenominator">
-            <summary>
-            Sample aspect ratio of the video frames
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;SARNum</c> and <c>SARDen</c>.</para>
-            <para>Note that this is a metadata setting that you are free to ignore, but if you want the proper display aspect ratio with anamorphic material, you should honor it.</para>
-            <para>On the other hand, there are situations (like when encoding) where you should probably ignore it because the user expects it to be ignored.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.SampleAspectRatioNumerator"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.Crop">
-            <summary>
-            The number of pixels you should crop the frame before displaying it
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;CropTop</c>, <c>CropBottom</c>, <c>CropLeft</c> and <c>CropRight</c>.</para>
-            </remarks>
-            <seealso cref="T:FFMSSharp.Selection"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.TopFieldFirst">
-            <summary>
-            Is the top field first?
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties->TopFieldFirst</c>.</para>
-            </remarks>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.FirstTime">
-            <summary>
-            The first timestamp of the stream, in seconds
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;FirstTime</c>.</para>
-            <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.LastTime"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.LastTime">
-            <summary>
-            The first timestamp of the stream, in seconds
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_VideoProperties-&gt;LastTime</c>.</para>
-            <para>Useful if you want to know if the stream has a delay, or for quickly determining its length in seconds.</para>
-            </remarks>
-            <seealso cref="P:FFMSSharp.VideoSource.FirstTime"/>
-        </member>
-        <member name="P:FFMSSharp.VideoSource.Track">
-            <summary>
-            Retrieves track info
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetTrackFromVideo</c>.</para>
-            <para>It's generally safer to use this instead of <see cref="M:FFMSSharp.Index.GetTrack(System.Int32)">Index.GetTrack</see>, since unlike that function it cannot cause access violations if you specified an nonexistent track number, return a <see cref="P:FFMSSharp.VideoSource.Track">Track object</see> that doesn't actually contain any indexing information, or return an object that ceases to be valid when the index is destroyed.</para>
-            <para>Note that the <see cref="P:FFMSSharp.VideoSource.Track">Track object</see> is only valid until its parent <see cref="T:FFMSSharp.VideoSource">AudioSource object</see> is destroyed.</para>
-            </remarks>
         </member>
         <member name="T:FFMSSharp.AVLogLevel">
             <summary>
@@ -1683,76 +1725,10 @@
             Stuff which is only useful for libav* developers
             </summary>
         </member>
-        <member name="T:FFMSSharp.Selection">
-            <summary>
-            Simple representation of a selection rectangle
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Selection.Top">
-            <summary>
-            Amount of Top to crop
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Selection.Left">
-            <summary>
-            Amount of Left to crop
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Selection.Right">
-            <summary>
-            Amount of Right to crop
-            </summary>
-        </member>
-        <member name="P:FFMSSharp.Selection.Bottom">
-            <summary>
-            Amount of Bottom to crop
-            </summary>
-        </member>
         <member name="T:FFMSSharp.FFMS2">
             <summary>
             Container for generic FFMS2 functions
             </summary>
-        </member>
-        <member name="M:FFMSSharp.FFMS2.Initialize(System.String)">
-            <summary>
-            Initialize the FFMS2 library
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_Init</c>.</para>
-            <para>Must be called before anything else.</para>
-            <para>If you can't (or don't want to) place ffms2.dll in the same directory as your .exe, you may specify a path where you store it.</para>
-            </remarks>
-        </member>
-        <member name="M:FFMSSharp.FFMS2.IsSourcePresent(FFMSSharp.Source)">
-            <summary>
-            Is the source compiled in the library?
-            </summary>
-            <param name="option">The source in question</param>
-            <returns>The result</returns>
-        </member>
-        <member name="M:FFMSSharp.FFMS2.IsSourceEnabled(FFMSSharp.Source)">
-            <summary>
-            Is the source currently enabled?
-            </summary>
-            <param name="option">The source in question</param>
-            <returns>The result</returns>
-        </member>
-        <member name="M:FFMSSharp.FFMS2.GetPixelFormat(System.String)">
-            <summary>
-            Gets a colorspace identifier from a colorspace name
-            </summary>
-            <remarks>
-            <para>In FFMS2, the equivalent is <c>FFMS_GetPixFmt</c>.</para>
-            <para>Translates a given pixel format name to an integer constant representing it, suitable for passing to <see cref="M:FFMSSharp.VideoSource.SetOutputFormat(System.Collections.Generic.ICollection{System.Int32},System.Int32,System.Int32,FFMSSharp.Resizer)">VideoSource.SetOutputFormat</see>.</para>
-            <para>This function exists so that you don't have to include a FFmpeg header file in every single program you ever write.</para>
-            <para>For a list of colorspaces and their names, see libavutil/pixfmt.h.</para>
-            <para>To get the name of a colorspace, strip the leading PIX_FMT_ and convert the remainder to lowercase.</para>
-            <para>For example, the name of PIX_FMT_YUV420P is yuv420p.</para>
-            <para>It is strongly recommended to use this function instead of including pixfmt.h directly, since this function guarantees that you will always get the constant definitions from the version of FFmpeg that FFMS2 was linked against.</para>
-            </remarks>
-            <param name="name">ASCII string identifying the pixel format.</param>
-            <returns>Integer identifying the pixel format.</returns>
-            <exception cref="T:System.ArgumentException">Invalid pixel format identifier.</exception>
         </member>
         <member name="P:FFMSSharp.FFMS2.Initialized">
             <summary>
@@ -1799,6 +1775,47 @@
             <remarks>
             <para>In FFMS2, the equivalent is <c>FFMS_GetLogLevel</c> and <c>FFMS_SetLogLevel</c>.</para>
             </remarks>
+        </member>
+        <member name="M:FFMSSharp.FFMS2.Initialize(System.String)">
+            <summary>
+            Initialize the FFMS2 library
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_Init</c>.</para>
+            <para>Must be called before anything else.</para>
+            <para>If you can't (or don't want to) place ffms2.dll in the same directory as your .exe, you may specify a path where you store it.</para>
+            </remarks>
+        </member>
+        <member name="M:FFMSSharp.FFMS2.IsSourcePresent(FFMSSharp.Source)">
+            <summary>
+            Is the source compiled in the library?
+            </summary>
+            <param name="option">The source in question</param>
+            <returns>The result</returns>
+        </member>
+        <member name="M:FFMSSharp.FFMS2.IsSourceEnabled(FFMSSharp.Source)">
+            <summary>
+            Is the source currently enabled?
+            </summary>
+            <param name="option">The source in question</param>
+            <returns>The result</returns>
+        </member>
+        <member name="M:FFMSSharp.FFMS2.GetPixelFormat(System.String)">
+            <summary>
+            Gets a colorspace identifier from a colorspace name
+            </summary>
+            <remarks>
+            <para>In FFMS2, the equivalent is <c>FFMS_GetPixFmt</c>.</para>
+            <para>Translates a given pixel format name to an integer constant representing it, suitable for passing to <see cref="M:FFMSSharp.VideoSource.SetOutputFormat(System.Collections.Generic.ICollection{System.Int32},System.Int32,System.Int32,FFMSSharp.Resizer)">VideoSource.SetOutputFormat</see>.</para>
+            <para>This function exists so that you don't have to include a FFmpeg header file in every single program you ever write.</para>
+            <para>For a list of colorspaces and their names, see libavutil/pixfmt.h.</para>
+            <para>To get the name of a colorspace, strip the leading PIX_FMT_ and convert the remainder to lowercase.</para>
+            <para>For example, the name of PIX_FMT_YUV420P is yuv420p.</para>
+            <para>It is strongly recommended to use this function instead of including pixfmt.h directly, since this function guarantees that you will always get the constant definitions from the version of FFmpeg that FFMS2 was linked against.</para>
+            </remarks>
+            <param name="name">ASCII string identifying the pixel format.</param>
+            <returns>Integer identifying the pixel format.</returns>
+            <exception cref="T:System.ArgumentException">Invalid pixel format identifier.</exception>
         </member>
     </members>
 </doc>

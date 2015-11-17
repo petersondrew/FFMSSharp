@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -29,6 +30,9 @@ namespace FFMSSharp
 
         [DllImport("ffms2.dll", SetLastError = false)]
         public static extern IntPtr FFMS_GetFrameInfo(IntPtr T, int Frame);
+
+        [DllImport("ffms2.dll", SetLastError = false)]
+        public static extern IntPtr FFMS_GetFrameInfos(IntPtr T);
 
         [DllImport("ffms2.dll", SetLastError = false)]
         public static extern IntPtr FFMS_GetFrameInfoFromPTS(IntPtr T, long PTS);
@@ -229,6 +233,29 @@ namespace FFMSSharp
 
             return new FrameInfo((FFMS_FrameInfo)Marshal.PtrToStructure(frameInfoPtr, typeof(FFMS_FrameInfo)));
         }
+
+        public List<FrameInfo> GetFrameInfos()
+        {
+            if (TrackType != TrackType.Video)
+                throw new InvalidOperationException("You can only use this function on video tracks.");
+
+            var frameInfoArray =
+                new FrameInfoArray(
+                    (FFMS_FrameInfoArray)
+                        Marshal.PtrToStructure(NativeMethods.FFMS_GetFrameInfos(_nativePtr),
+                            typeof (FFMS_FrameInfoArray)));
+
+            var list = new List<FrameInfo>(frameInfoArray.Length);
+
+            for (var i = 0; i < frameInfoArray.Length; i++)
+            {
+                var pos = i*Marshal.SizeOf(typeof (FFMS_FrameInfo));
+                var info = new FrameInfo((FFMS_FrameInfo)Marshal.PtrToStructure(frameInfoArray.Frames + pos, typeof(FFMS_FrameInfo)));
+                list.Add(info);
+            }
+
+            return list;
+        } 
 
         public FrameInfo GetFrameInfoFromPts(long pts)
         {

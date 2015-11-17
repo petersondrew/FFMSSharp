@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace FFMSSharp
 {
@@ -13,6 +14,26 @@ namespace FFMSSharp
         public int KeyFrame;
         public long FilePos;
         public int Frame;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    class FFMS_FrameInfoArray
+    {
+        public IntPtr Frames;
+        public int Length;
+    }
+
+    public class FrameInfoArray
+    {
+        readonly FFMS_FrameInfoArray _nativeStruct;
+
+        public IntPtr Frames => _nativeStruct.Frames;
+        public int Length => _nativeStruct.Length;
+
+        internal FrameInfoArray(FFMS_FrameInfoArray frameInfoArray)
+        {
+            _nativeStruct = frameInfoArray;
+        }
     }
 
     #endregion
@@ -38,8 +59,7 @@ namespace FFMSSharp
         /// <para>To convert this to a timestamp in wallclock milliseconds, use the relation long timestamp = (long)((<see cref="FrameInfo.PTS"/> * <see cref="Track.TimeBaseNumerator">Track.TimeBase.Numerator</see>) / (double)<see cref="Track.TimeBaseDenominator">Track.TimeBase.Denumerator</see>).</para>
         /// </remarks>
         // ReSharper disable once InconsistentNaming
-        public long PTS
-        { get { return _nativeStruct.PTS; } }
+        public long PTS => _nativeStruct.PTS;
 
         /// <summary>
         /// RFF flag for the frame
@@ -48,8 +68,7 @@ namespace FFMSSharp
         /// <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo->RepeatPict</c>.</para>
         /// </remarks>
         /// <seealso cref="Frame.RepeatPicture"/>
-        public int RepeatPicture
-        { get { return _nativeStruct.RepeatPict; } }
+        public int RepeatPicture => _nativeStruct.RepeatPict;
 
         /// <summary>
         /// Is this a keyframe?
@@ -57,12 +76,11 @@ namespace FFMSSharp
         /// <remarks>
         /// <para>In FFMS2, the equivalent is <c>FFMS_FrameInfo->KeyFrame</c>.</para>
         /// </remarks>
-        public bool KeyFrame
-        { get { return _nativeStruct.KeyFrame != 0; } }
+        public bool KeyFrame => _nativeStruct.KeyFrame != 0;
 
-        public long FilePos { get { return _nativeStruct.FilePos; } }
+        public long FilePos => _nativeStruct.FilePos;
 
-        public int Frame { get { return _nativeStruct.Frame; } }
+        public int Frame => _nativeStruct.Frame;
 
         #endregion
 
