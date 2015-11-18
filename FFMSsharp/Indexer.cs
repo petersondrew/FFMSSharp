@@ -13,7 +13,7 @@ namespace FFMSSharp
     static partial class NativeMethods
     {
         [DllImport("ffms2.dll", SetLastError = false)]
-        public static extern SafeIndexerHandle FFMS_CreateIndexerWithDemuxer(byte[] SourceFile, int Demuxer, ref FFMS_ErrorInfo ErrorInfo);
+        public static extern SafeIndexerHandle FFMS_CreateIndexerWithDemuxer(byte[] SourceFile, int Demuxer, [MarshalAs(UnmanagedType.LPStr)] string VideoCodec, ref FFMS_ErrorInfo ErrorInfo);
 
         [DllImport("ffms2.dll", SetLastError = false)]
         public static extern void FFMS_CancelIndexing(IntPtr Indexer);
@@ -200,9 +200,10 @@ namespace FFMSSharp
         /// <para>Picking a demuxer that doesn't work on your file will not cause automatic fallback on lavf or automatic probing; it'll just cause indexer creation to fail.</para>
         /// </remarks>
         /// <param name="sourceFile">The media file</param>
+        /// <param name="videoCodec">Optionally force the video codec to use</param>
         /// <param name="demuxer">What demuxer to use</param>
         /// <exception cref="System.IO.FileLoadException">Failure to load the media file</exception>
-        public Indexer(string sourceFile, Source demuxer = Source.Default)
+        public Indexer(string sourceFile, string videoCodec = null, Source demuxer = Source.Default)
         {
             if (sourceFile == null) throw new ArgumentNullException(@"sourceFile");
 
@@ -213,7 +214,7 @@ namespace FFMSSharp
             };
 
             byte[] sourceFileBytes = Encoding.UTF8.GetBytes(sourceFile);
-            _handle = NativeMethods.FFMS_CreateIndexerWithDemuxer(sourceFileBytes, (int)demuxer, ref err);
+            _handle = NativeMethods.FFMS_CreateIndexerWithDemuxer(sourceFileBytes, (int)demuxer, videoCodec, ref err);
 
             if (!_handle.IsInvalid) return;
 
